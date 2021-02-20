@@ -1,0 +1,91 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  width: 100%;
+  height: auto;
+}
+
+pre {
+  overflow: auto;
+  padding: 6px 10px;
+}
+
+pre::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+/*滚动条里面小方块样式*/
+pre::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: rgb(196, 196, 196);
+}
+/*滚动条里面轨道样式*/
+pre::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  overflow-x: scroll;
+}
+
+h2 {
+  border-bottom: 1px solid #ccc;
+  color: #000;
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+}
+
+blockquote {
+  padding: 0 15px;
+  background-color: #f3f3f3;
+  color: rgb(162, 162, 162);
+  border-radius: 0.2rem;
+  font-size: 1rem;
+}
+
+blockquote > :first-child {
+  margin-top: 0px;
+}
+
+blockquote > :last-child {
+  margin-bottom: 0px;
+}
+
+table th {
+  font-weight: bold;
+}
+
+table th,
+table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+iframe {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 35rem;
+  border-radius: 1rem;
+}
