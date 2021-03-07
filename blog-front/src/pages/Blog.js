@@ -24,182 +24,208 @@ import NavigationIcon from "@material-ui/icons/Navigation";
 import Footer from "../components/Footer";
 
 const topClick = () => {
-  document.body.scrollTop = document.documentElement.scrollTop = 0;
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      marginLeft: "10%",
-      marginTop: "1%",
-      width: "65%",
-      height: "auto",
-      borderRadius: "1rem",
-      overflow: " hidden",
+    root: {
+        display: "flex",
+        flexWrap: "wrap",
+        "& > *": {
+            marginLeft: "10%",
+            marginTop: "1%",
+            width: "65%",
+            height: "auto",
+            borderRadius: "1rem",
+            overflow: " hidden",
+        },
     },
-  },
-  header: {
-    marginTop: "1rem",
-    width: "2rem",
-    height: "2rem",
-  },
-  bread: {
-    fontSize: "1rem",
-  },
-  title: {
-    margin: "1rem",
-  },
-  info: {
-    marginLeft: "1rem",
-  },
-  type: {
-    marginLeft: ".5rem",
-  },
-  hot: {
-    marginLeft: ".5rem",
-  },
-  article: {
-    width: "85%",
-    marginTop: "3%",
-    marginLeft: "7.5%",
-    marginRight: "7.5%",
-    overflow: "auto",
-    fontSize: "1rem",
-    overflow: " hidden",
-  },
-  nav: {
-    width: "15%",
-    display: "flex",
-    height: "10%",
-    marginTop: "5%",
-    marginLeft: "3%",
-    paddingTop: "2%",
-    paddingBottom: "2%",
-  },
-  margin: {
-    position: "fixed",
-    top: "80%",
-    right: "1.5%",
-    width: theme.spacing(5),
-    height: theme.spacing(5),
-    borderRadius: theme.spacing(2.5),
-    margin: theme.spacing(1),
-  },
+    header: {
+        marginTop: "1rem",
+        width: "2rem",
+        height: "2rem",
+    },
+    bread: {
+        fontSize: "1rem",
+    },
+    title: {
+        margin: "1rem",
+    },
+    breadtitle: {
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+    },
+    info: {
+        marginLeft: "1rem",
+    },
+    type: {
+        marginLeft: ".5rem",
+    },
+    hot: {
+        marginLeft: ".5rem",
+    },
+    article: {
+        width: "85%",
+        marginTop: "3%",
+        marginLeft: "7.5%",
+        marginRight: "7.5%",
+        overflow: "auto",
+        fontSize: "1rem",
+        overflow: " hidden",
+    },
+    nav: {
+        width: "15%",
+        display: "flex",
+        height: "10%",
+        marginTop: "5%",
+        marginLeft: "3%",
+        paddingTop: "2%",
+        paddingBottom: "2%",
+    },
+    margin: {
+        position: "fixed",
+        top: "80%",
+        right: "1.5%",
+        width: theme.spacing(5),
+        height: theme.spacing(5),
+        borderRadius: theme.spacing(2.5),
+        margin: theme.spacing(1),
+    },
 }));
 
 export default function SimplePaper(props) {
-  const classes = useStyles();
-  const [article, setArticle] = useState([
-    { id: 0, time: "", title: "", typeName: "", content: "", viewCount: "" },
-  ]);
+    const classes = useStyles();
+    const [article, setArticle] = useState([
+        {
+            id: 0,
+            time: "",
+            title: "",
+            typeName: "",
+            content: "",
+            viewCount: "",
+        },
+    ]);
 
-  useEffect(async () => {
-    let blogId = props.match.params.id;
-    const result = await axios(api.getArticle + blogId);
-    setArticle(result.data.data);
-    // console.log(article);
-  }, []);
+    useEffect(async () => {
+        let blogId = props.match.params.id;
+        const result = await axios(api.getArticle + blogId);
+        setArticle(result.data.data);
+        // console.log(article);
+    }, []);
 
-  const renderer = new marked.Renderer();
-  marked.setOptions({
-    renderer: renderer,
-    pedantic: false,
-    gfm: true,
-    breaks: false,
-    sanitize: false,
-    tables: true,
-    smartLists: true,
-    highlight: function (code) {
-      return hljs.highlightAuto(code).value;
-    },
-  });
+    const renderer = new marked.Renderer();
+    marked.setOptions({
+        renderer: renderer,
+        pedantic: false,
+        gfm: true,
+        breaks: false,
+        sanitize: false,
+        tables: true,
+        smartLists: true,
+        highlight: function (code) {
+            return hljs.highlightAuto(code).value;
+        },
+    });
 
-  // const a = article[0].content;
-  // const markedblog = marked(a);
+    // const a = article[0].content;
+    // const markedblog = marked(a);
 
-  return (
-    <div>
-      <div className={classes.root}>
-        <span>
-          <AssignmentOutlinedIcon className={classes.header} />
-        </span>
-        <span>
-          <Breadcrumbs aria-label="breadcrumb" className={classes.bread}>
-            <Link href="#" color="inherit">
-              Home
-            </Link>
-            <Typography color="textPrimary">{article[0].title}</Typography>
-          </Breadcrumbs>
-        </span>
-        <Paper elevation={3}>
-          <Typography variant="h4" component="h2" className={classes.title}>
-            {article[0].title}
-          </Typography>
-          <Chip
-            clickable
-            className={classes.info}
-            icon={<AccessTimeIcon />}
-            label={article[0].time.slice(0, 10)}
-            variant="outlined"
-          />
-          <Chip
-            clickable
-            className={classes.type}
-            icon={
-              <DnsIcon
-                style={{
-                  width: "1.3rem",
-                  height: "1.3rem",
-                }}
-              />
-            }
-            label={article[0].typeName}
-            variant="outlined"
-          />
-          <Chip
-            clickable
-            className={classes.hot}
-            icon={
-              <WhatshotIcon
-                style={{
-                  width: "1.3rem",
-                  height: "1.3rem",
-                }}
-              />
-            }
-            label={article[0].viewCount}
-            variant="outlined"
-            color="#ff9e80"
-          />
-          <div
-            className={classes.article}
-            dangerouslySetInnerHTML={{ __html: marked(article[0].content) }}
-          ></div>
-        </Paper>
-        <Hidden smDown>
-          <Paper elevation={3} className={classes.nav}>
-            <MarkNav
-              className="article-menu"
-              source={article[0].content}
-              headingTopOffset={80}
-              ordered={false}
-            />
-          </Paper>
-        </Hidden>
-        <Link onClick={topClick}>
-          <Fab
-            size="medium"
-            color="inherit"
-            aria-label="top"
-            className={classes.margin}
-          >
-            <NavigationIcon />
-          </Fab>
-        </Link>
-      </div>
-      <Footer></Footer>
-    </div>
-  );
+    return (
+        <div>
+            <div className={classes.root}>
+                <span>
+                    <AssignmentOutlinedIcon className={classes.header} />
+                </span>
+                <span>
+                    <Breadcrumbs
+                        aria-label="breadcrumb"
+                        className={classes.bread}
+                    >
+                        <Link href="/" color="inherit">
+                            Home
+                        </Link>
+                        <Typography
+                            className={classes.breadtitle}
+                            color="textPrimary"
+                        >
+                            {article[0].title}
+                        </Typography>
+                    </Breadcrumbs>
+                </span>
+                <Paper elevation={3}>
+                    <Typography
+                        variant="h4"
+                        component="h2"
+                        className={classes.title}
+                    >
+                        {article[0].title}
+                    </Typography>
+                    <Chip
+                        clickable
+                        className={classes.info}
+                        icon={<AccessTimeIcon />}
+                        label={article[0].time.slice(0, 10)}
+                        variant="outlined"
+                    />
+                    <Chip
+                        clickable
+                        className={classes.type}
+                        icon={
+                            <DnsIcon
+                                style={{
+                                    width: "1.3rem",
+                                    height: "1.3rem",
+                                }}
+                            />
+                        }
+                        label={article[0].typeName}
+                        variant="outlined"
+                    />
+                    <Chip
+                        clickable
+                        className={classes.hot}
+                        icon={
+                            <WhatshotIcon
+                                style={{
+                                    width: "1.3rem",
+                                    height: "1.3rem",
+                                }}
+                            />
+                        }
+                        label={article[0].viewCount}
+                        variant="outlined"
+                        color="#ff9e80"
+                    />
+                    <div
+                        className={classes.article}
+                        dangerouslySetInnerHTML={{
+                            __html: marked(article[0].content),
+                        }}
+                    ></div>
+                </Paper>
+                <Hidden smDown>
+                    <Paper elevation={3} className={classes.nav}>
+                        <MarkNav
+                            className="article-menu"
+                            source={article[0].content}
+                            headingTopOffset={80}
+                            ordered={false}
+                        />
+                    </Paper>
+                </Hidden>
+                <Link onClick={topClick}>
+                    <Fab
+                        size="medium"
+                        color="inherit"
+                        aria-label="top"
+                        className={classes.margin}
+                    >
+                        <NavigationIcon />
+                    </Fab>
+                </Link>
+            </div>
+            <Footer></Footer>
+        </div>
+    );
 }
